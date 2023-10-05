@@ -1,5 +1,5 @@
 # Set the directory path
-$directory = "C:\Users\AlexanderSchönfeld\OneDrive - Das Lizenz Atelier GmbH & Co. KG\_Customer\AI Pioneers\public\img"
+$directory = "path"
 
 # Get a list of files in the directory
 $files = Get-ChildItem $directory
