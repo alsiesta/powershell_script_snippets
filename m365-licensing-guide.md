@@ -16,7 +16,36 @@ Install-Module Microsoft.Graph -Scope CurrentUser
 Connect-MgGraph -Scopes "User.Read.All", "Directory.Read.All" -UseDeviceAuthentication
 ```
 
-## 2. Lizenzübersicht anzeigen (insbesondere O365 Business Premium)
+## 2. Lizenzübersicht anzeigen
+
+### Alle Lizenzen im Tenant anzeigen
+
+```powershell
+Get-MgSubscribedSku | Select-Object SkuPartNumber, SkuId, ConsumedUnits, @{Name="Total";Expression={$_.PrepaidUnits.Enabled}}, @{Name="AppliesTo";Expression={"User"}}
+```
+
+**Beispielausgabe:**
+```
+SkuPartNumber : FLOW_FREE
+SkuId         : f30db892-07e9-47e9-837c-80727f46fd3d
+ConsumedUnits : 12
+Total         : 10000
+AppliesTo     : User
+
+SkuPartNumber : O365_BUSINESS_PREMIUM
+SkuId         : f245ecc8-75af-4f8e-b61f-27d8114de5f3
+ConsumedUnits : 4
+Total         : 5
+AppliesTo     : User
+
+SkuPartNumber : TEAMS_ESSENTIALS_AAD
+SkuId         : 3ab6abff-666f-4424-bfb7-f0bc274ec7bc
+ConsumedUnits : 8
+Total         : 8
+AppliesTo     : User
+```
+
+### Spezifische Lizenz anzeigen (z. B. O365 Business Premium)
 
 ```powershell
 Get-MgSubscribedSku | Where-Object { $_.SkuPartNumber -eq "O365_BUSINESS_PREMIUM" } |
